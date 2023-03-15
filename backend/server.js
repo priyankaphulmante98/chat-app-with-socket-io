@@ -1,5 +1,6 @@
 const express = require('express') 
 const dotenv = require('dotenv').config
+require('./data/data')
 
 const app = express();
 
