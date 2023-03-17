@@ -2,7 +2,7 @@ import React from 'react'
 import axios from 'axios'
 import { useEffect, useState } from 'react'
 
-function ChatPage() {
+function Chatpage() {
 
     const [chats, setChats] = useState([])
 
@@ -31,5 +31,5 @@ setChats(data)
       )
     }
 
-export default ChatPage
+export default Chatpage
 
