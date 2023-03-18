@@ -1,12 +1,15 @@
 const express = require('express') 
-const dotenv = require('dotenv').config
-require('./data/data')
-const {chats} = require('./data/data')
 const connectDB = require('./config/db')
-const colors = require('colors')
+const dotenv = require('dotenv')
 
-const app = express();
+
+dotenv.config();
 connectDB();
+const app = express();
+
+app.use(express.json()); // to accept json data
+
+
 app.get('/', (req, res) => {
     res.send('API is running sucessfully')
 })

@@ -1,19 +1,19 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
+const colors = require("colors");
 
-const connectDB = async() => {
-    try {
-       await mongoose.connect('mongodb://0.0.0.0:27017/chat', {
-            useNewUrlParser:true,
-            useUnifiedTopology:true,
-            useFindAndModify:true,
-        });
+const connectDB = async () => {
+  try {
+    const conn = await mongoose.connect(process.env.MONGO_URI, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+      useFindAndModify: true,
+    });
 
-        console.log('mongoDB Connect')
-        
-    } catch (error) {
-        console.log('Error');
-      
-    }
-}
+    console.log(`MongoDB Connected: ${conn.connection.host}`.cyan.underline);
+  } catch (error) {
+    console.log(`Error: ${error.message}`.red.bold);
+    process.exit();
+  }
+};
 
 module.exports = connectDB;

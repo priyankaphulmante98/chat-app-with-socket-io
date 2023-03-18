@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const bcrypt = require('bacryptjs');
 
 const userSchema = mongoose.Schema({
     name:{
@@ -7,7 +8,9 @@ const userSchema = mongoose.Schema({
     },
     email:{
         type:String,
+        unique:true,
         required:true
+
     },
     password:{
         type:String,
@@ -18,10 +21,26 @@ const userSchema = mongoose.Schema({
         required:true,
         default:'https://avatars.githubusercontent.com/u/103947245?v=4'
     },
+    isAdmin:{
+        type:Boolean,
+        required:true,
+        default:false,
+    },
 
 },{timeStamps:true}
 );
 
+userSchema.methods.matchPassword = async function(enteredPassword){
+    return await bcrypt.compare(enteredPassword, this.password);
+}
+
+userSchema.pre("save", async function(next){
+    if(!this.isModified){
+        next();
+    }
+    const salt = await bcrypt.genSalt(10);
+    this.password = await bcrypt.hash(this.passsword, salt); 
+})
 const User = mongoose.model('User', userSchema);
 
 module.exports = User;
