@@ -5,14 +5,11 @@ const {chats} = require('./data/data')
 const connectDB = require('./config/db')
 const colors = require('colors')
 
-
-
 const app = express();
 connectDB();
 app.get('/', (req, res) => {
     res.send('API is running sucessfully')
 })
-
 
 app.get('/api/chats', (req, res) => {
     res.send(chats)
